@@ -20,7 +20,11 @@ class Poker:
             "A",
         ]
 
-        self.cards = [f"{suite}{card_type}" for suite in self.suites for card_type in self.card_types]
+        self.cards = [
+            f"{suite}{card_type}"
+            for suite in self.suites
+            for card_type in self.card_types
+        ]
 
 
 class Dealer:
@@ -30,21 +34,15 @@ class Dealer:
 
     def deal(self, decks: int = 4):
         should_dealed_count = len(self.cards) // decks
+        random.shuffle(self.cards)
         for i in range(decks):
-            a_deck_of_card = []
-            for _ in range(should_dealed_count):
-                card = random.choice(self.cards)
-                a_deck_of_card.append(card)
-                self.cards.remove(card)
-
-            print(f"第 {i+1} 副牌組: {a_deck_of_card}")
-
-        print(f"不夠發的牌: {self.cards}")
+            print(
+                f"第 {i+1} 副牌組: {self.cards[should_dealed_count*i:should_dealed_count*(i+1)]}"
+            )
 
 
 def main():
     Dealer().deal()
-    Dealer().deal(10)
 
 
 if __name__ == "__main__":
